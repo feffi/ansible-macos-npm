@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  author: Kevin Wennemuth
+  description: Ansible role to manage macOS npm installs.
+  license: MIT
+  min_ansible_version: 2.4.0.0
+  platforms:
+    - name: Darwin
+      versions:
+        - all
+  galaxy_tags:
+    - system
+    - osx
+    - macos
+    - config
+    - npm
+dependencies:
+  - { role: feffi.macos-homebrew,
+      macos_homebrew: {
+        packages: [
+          { name: "node" }
+        ],
+        taps: [],
+        casks: [],
+        brews: []
+      }
+    }

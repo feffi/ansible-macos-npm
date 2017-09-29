@@ -1,0 +1,9 @@
+---
+- name: Install npm packages
+  become: true
+  npm:
+    name: "{{ item.name }}"
+    state: latest
+    global: "{{ item.global | default(true) }}"
+  with_items: "{{ macos_npm.packages }}"
+  when: macos_npm.packages

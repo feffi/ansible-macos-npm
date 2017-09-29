@@ -1,0 +1,5 @@
+---
+macos_npm:
+  # Packages to install via npm
+  packages: []
+  # - { name: "vtop", global: true }
