@@ -1,4 +1,12 @@
 ---
+- name: Postinstall node/npm
+  command: brew postinstall node
+  when: macos_npm.packages
+
+- name: Force update for npm
+  command: npm update -g
+  when: macos_npm.packages
+
 - name: Install npm packages
   become: true
   npm:
@@ -7,3 +15,5 @@
     global: "{{ item.global | default(true) }}"
   with_items: "{{ macos_npm.packages }}"
   when: macos_npm.packages
+
+
