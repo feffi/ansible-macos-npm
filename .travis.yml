@@ -12,6 +12,8 @@ install:
     - sudo -H easy_install pip
     - sudo -H pip install -I ansible==2.4.0.0
     - mkdir -p /tmp/roles
+    - export
+    - env
     - sudo chown -R $USER:$GROUP ~/.npm
     - sudo chown -R $USER:$GROUP ~/.config
     - "{ echo '[defaults]'; echo 'roles_path = ../:/tmp/roles'; echo 'hash_behaviour=merge'; } >> ansible.cfg"
