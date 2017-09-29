@@ -18,7 +18,8 @@ dependencies:
   - { role: feffi.macos-homebrew,
       macos_homebrew: {
         packages: [
-          { name: "node" }
+          { name: "node" },
+          { name: "npm" }
         ],
         taps: [],
         casks: [],
