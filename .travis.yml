@@ -11,11 +11,12 @@ osx_image: xcode9
 install:
     - sudo -H easy_install pip
     - sudo -H pip install -I ansible==2.4.0.0
-    - mkdir -p /tmp/roles
+    - mkdir -p ~/.npm
+    - mkdir -p ~/.config
     - export
     - env
-    - sudo chown -R $USER:$GROUP ~/.npm
-    - sudo chown -R $USER:$GROUP ~/.config
+    - sudo chown -R $LOGNAME ~/.npm
+    - sudo chown -R $LOGNAME ~/.config
     - "{ echo '[defaults]'; echo 'roles_path = ../:/tmp/roles'; echo 'hash_behaviour=merge'; } >> ansible.cfg"
     - ansible-galaxy install -f -r tests/requirements.yml -p /tmp/roles
 
