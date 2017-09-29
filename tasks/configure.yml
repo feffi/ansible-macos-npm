@@ -2,10 +2,21 @@
 - name: Postinstall node/npm
   command: brew postinstall node
   when: macos_npm.packages
+  changed_when: false
+
+- name: Check for outdated npm packages
+  become: true
+  command: npm outdated
+  when: macos_npm.packages
+  register: npm_outdated
 
 - name: Force update for npm
+  become: true
   command: npm update -g
-  when: macos_npm.packages
+  when:
+    - macos_npm.packages
+    - npm_outdated.stdout
+  changed_when: false
 
 - name: Install npm packages
   become: true
