@@ -6,9 +6,8 @@
 
 - name: Postinstall node/npm
   command: 'brew postinstall node'
-  when: macos_npm.packages
+  when: macos_npm.packages and not npm_stat.stat.exists
   changed_when: false
-  when: not npm_stat.stat.exists
 
 - name: Check for outdated npm packages
   become: "{{ ansible_user_id }}"
