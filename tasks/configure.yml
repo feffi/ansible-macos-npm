@@ -1,25 +1,29 @@
 ---
+- name: Determine npm install
+  stat:
+    path: "/usr/local/bin/npm"
+  register: npm_stat
+
 - name: Postinstall node/npm
-  command: brew postinstall node
+  command: 'brew postinstall node'
   when: macos_npm.packages
   changed_when: false
+  when: not npm_stat.stat.exists
 
 - name: Check for outdated npm packages
-  become: true
-  command: npm outdated
+  become: "{{ ansible_user_id }}"
+  command: 'npm outdated -g'
   when: macos_npm.packages
   register: npm_outdated
+  failed_when: npm_outdated.stderr
+  changed_when: npm_outdated.rc != 0 and npm_outdated.stdout
 
 - name: Force update for npm
-  become: true
-  command: npm update -g
-  when:
-    - macos_npm.packages
-    - npm_outdated.stdout
+  command: 'npm update -g'
+  when: macos_npm.packages and npm_outdated.stdout
   changed_when: false
 
 - name: Install npm packages
-  become: true
   npm:
     name: "{{ item.name }}"
     state: latest
